@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+export function App() {
 
-function App() {
-
-  return (
-    <>
-
-    </>
-  );
+    return (
+        <>
+            <h1>Pomodoro</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur
+                adipisicing elit. Sit placeat ducimus ad
+                deserunt aperiam, assumenda nemo sapiente,
+                eligendi architecto nesciunt minima quasi
+                ipsam perspiciatis in quisquam consequatur
+                quibusdam quae dolore.</p>
+        </>
+    );
 }
-
-export default App;
