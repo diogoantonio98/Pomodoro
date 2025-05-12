@@ -1,5 +1,5 @@
 import { Heading } from './components/Heading';
-import { TimerIcon } from 'lucide-react';
+import { PlayCircleIcon, StopCircleIcon, TimerIcon } from 'lucide-react';
 import { Container } from './components/Container';
 import { Logo } from './components/Logo';
 
@@ -9,10 +9,20 @@ import { Menu } from './components/Menu';
 import { CountDown } from './components/CountDown';
 import { DefaultInput } from './components/DefaultInput';
 import { Cycles } from './components/Cycles';
+import { DefaultButton } from './components/DefaultButton';
+import { Footer } from './components/Footer';
 
 
 
 export function App() {
+
+    // Sempre que eu usar useState, não vou usar atribuição diretamente
+    // const [numero, setNumero] = useState(() => {
+    //   console.log('Lazy initialization');
+    //   return 0;
+    // });
+    // setNumero(prevState => prevState + 1);
+
 
     return (
         <>
@@ -48,9 +58,13 @@ export function App() {
                     </div>
 
                     <div className='formRow'>
-                        <button>Enviar</button>
+                        <DefaultButton icon={<PlayCircleIcon />} />
                     </div>
                 </form>
+            </Container>
+
+            <Container>
+                <Footer />
             </Container>
         </>
     );
