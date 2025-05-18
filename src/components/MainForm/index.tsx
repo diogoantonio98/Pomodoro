@@ -6,12 +6,13 @@ import { useRef } from "react";
 import type { TaskModel } from "../../models/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
-import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
 import { getNextCycleType } from "../../utils/getNextCycleType";
+import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
+import { Tips } from "../Tips";
 
 export function MainForm() {
 
-    const { state, setState } = useTaskContext();
+    const { state, dispatch } = useTaskContext();
 
     // const [taskName, setTaskName] = useState('');
     const taskNameInput = useRef<HTMLInputElement>(null);
@@ -41,38 +42,42 @@ export function MainForm() {
             type: nextCyleType,
         };
 
-        const secondsRemaining = newTask.duration * 60;
+        dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
 
-        setState(prevState => {
-            return {
-                ...prevState,
-                config: { ...prevState.config },
-                activeTask: newTask,
-                currentCycle: nextCycle, // Conferir
-                secondsRemaining,
-                formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
-                tasks: [...prevState.tasks, newTask],
-            };
-        });
+        // setState(prevState => {
+        //     return {
+        //         ...prevState,
+        //         config: { ...prevState.config },
+        //         activeTask: newTask,
+        //         currentCycle: nextCycle, // Conferir
+        //         secondsRemaining,
+        //         formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
+        //         tasks: [...prevState.tasks, newTask],
+        //     };
+        // });
 
     }
 
     function handleInterruptTask() {
-        setState(prevState => {
-            return {
-                ...prevState,
-                activeTask: null,
-                // currentCycle: 0,
-                secondsRemaining: 0,
-                formattedSecondsRemaining: '00:00',
-                tasks: prevState.tasks.map(task => {
-                    if (prevState.activeTask && prevState.activeTask.id === task.id) {
-                        return { ...task, interruptDate: Date.now() };
-                    }
-                    return task;
-                }),
-            };
-        });
+
+        dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
+
+
+        // setState(prevState => {
+        //     return {
+        //         ...prevState,
+        //         activeTask: null,
+        //         // currentCycle: 0,
+        //         secondsRemaining: 0,
+        //         formattedSecondsRemaining: '00:00',
+        //         tasks: prevState.tasks.map(task => {
+        //             if (prevState.activeTask && prevState.activeTask.id === task.id) {
+        //                 return { ...task, interruptDate: Date.now() };
+        //             }
+        //             return task;
+        //         }),
+        //     };
+        // });
     }
 
     return (
@@ -91,7 +96,7 @@ export function MainForm() {
             </div>
 
             <div className='formRow'>
-                <p>Lorem ipsum dolor sit amet.</p>
+                <Tips />
             </div>
 
             {state.currentCycle > 0 ? (

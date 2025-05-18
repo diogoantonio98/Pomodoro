@@ -11,16 +11,21 @@ export const TaskActionTypes = {
     START_TASK: 'START_TASK',
     INTERRUPT_TASK: 'INTERRUPT_TASK',
     RESET_STATE: 'RESET_STATE',
+    COUNT_DOWN: 'COUNT_DOWN',
+    COMPLETE_TASK: 'COMPLETE_TASK',
 } as const;
 
-export type TaskActionTypesType = (typeof TaskActionTypes)[keyof typeof TaskActionTypes];
+//type TaskActionTypesType = (typeof TaskActionTypes)[keyof typeof TaskActionTypes];
 
 
 export type TaskActionsWithPayload =
     {
-        type: 'START_TASK';
+        type: "START_TASK";
         payload: TaskModel;
-    };
+    } | {
+        type: 'COUNT_DOWN';
+        payload: { secondsRemaining: number; };
+    };;
 
 
 export type TaskActionsWithoutPayload =
@@ -29,7 +34,8 @@ export type TaskActionsWithoutPayload =
     }
     | {
         type: 'INTERRUPT_TASK';
-        payload: TaskModel;
+    } | {
+        type: 'COMPLETE_TASK';
     };
 
 export type TaskActionModel =
