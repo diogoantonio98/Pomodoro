@@ -3,6 +3,7 @@ import { TaskContexProvider } from './contexts/TaskContext/TaskContextProvider';
 
 import './styles/theme.css';
 import './styles/global.css';
+import { MessagesContainer } from './components/MessagesContainer';
 
 export function App() {
 
@@ -15,7 +16,9 @@ export function App() {
 
     return (
         <TaskContexProvider>
-            <Home />
+            <MessagesContainer>
+                <Home />
+            </MessagesContainer>
         </TaskContexProvider>
     );
 }
